@@ -1,1 +1,313 @@
-My GitHub Page
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>MooClock Demo</title>
+	<meta name="description" content="a mootools plugin to show a canvas/vml clock animation">
+	<meta name="author" content="Stefano Ceschi Berrini ~ @stecb">
+	
+	<link rel="stylesheet" href="css/style.css?v=2">
+	<link rel="stylesheet" href="css/fb-buttons.css?v=2">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<style>
+	  #mooClock-1{
+	    width:80px;
+	    height:80px;
+      margin-left:570px;
+	  }
+	  #mooClock-2{
+	    background:url(./img/clock-template.png) no-repeat center center;
+	    width:196px;
+	    height:196px;
+      margin-left:570px;
+	  }
+	  .other{
+	    float:left;
+	  }
+	  .other .code{
+	    width:550px;
+	    margin-top:20px;
+	  }
+	  .slider {
+      background: #CCC;
+      height: 16px;
+      width: 200px;
+      margin-top:20px;
+    }
+      .slider .knob {
+        background: #000;
+        width: 16px;
+        height: 16px;
+      }
+      
+    article{
+      clear:both;
+      margin:20px;
+    }
+    h1,h2{
+      margin-bottom:10px;
+      font-size:14px;
+      padding:2px;
+      background:#F2F2F2;
+    }
+    h1{
+      font-size:18px;
+    }
+    .mooClockTime{
+      text-align:center;
+      font-size:14px;
+    }
+    
+    a{
+      text-decoration:none;
+    }
+    
+    footer{
+      text-align:center;
+      padding:10px;
+    }
+    
+    .forkmegithub{
+      position:absolute;
+      top:0;
+      right:0;
+      display:block;
+      width:149px;
+      height:149px;
+      background:url(./img/fork.png) no-repeat center center;
+    }
+    
+	</style>
+
+</head>
+<body>
+	<div id="container">
+		<header>
+      <h1>Mooclock: a lightweight mootools plugin to show a dynamic clock by html5 &lt;canvas&gt; or VML (for IE &lt; 9)</h2>
+      <a href="https://github.com/stecb/mooclock" target="_blank" class="forkmegithub"></a>
+		</header>
+    
+		<div id="main" role="main">
+		  
+		  <article>
+		    <p>It's very simple to use: define an element with fixed width/height as a placeholder for the clock</p>
+<pre style='color:#000020;background:#f6f8ff;'><span style='color:#0057a6; '>&lt;</span><span style='color:#200080; font-weight:bold; '>div</span><span style='color:#474796; '> </span><span style='color:#074726; '>id</span><span style='color:#308080; '>=</span><span style='color:#1060b6; '>"mooClock"</span><span style='color:#0057a6; '>></span><span style='color:#0057a6; '>&lt;/</span><span style='color:#200080; font-weight:bold; '>div</span><span style='color:#0057a6; '>></span>
+</pre>
+        <p>Add some basic css rules (width/height, mandatory to make it work properly)</p>
+<pre style='color:#000020;background:#f6f8ff;'><span style='color:#308080; '>#</span>mooClock<span style='color:#406080; '>{</span>
+    <span style='color:#7779bb; font-weight:bold; '>width</span><span style='color:#308080; '>:</span><span style='color:#008c00; '>100</span><span style='color:#006600; '>px</span><span style='color:#406080; '>;</span>
+    <span style='color:#7779bb; font-weight:bold; '>height</span><span style='color:#308080; '>:</span><span style='color:#008c00; '>100</span><span style='color:#006600; '>px</span><span style='color:#406080; '>;</span>
+<span style='color:#406080; '>}</span>
+</pre>
+        <p>Initialize the plugin</p>
+<pre style='color:#000020;background:#f6f8ff;'><span style='color:#200080; font-weight:bold; '>var</span> mooclockInstance <span style='color:#308080; '>=</span> <span style='color:#200080; font-weight:bold; '>new</span> MooClock<span style='color:#308080; '>(</span>$<span style='color:#308080; '>(</span><span style='color:#1060b6; '>'mooClock'</span><span style='color:#308080; '>)</span><span style='color:#308080; '>,</span><span style='color:#406080; '>{</span>
+    <span style='color:#595979; '>/*options*/</span>
+<span style='color:#406080; '>}</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+</pre>       
+	    </article>
+	    
+		  <article>
+		    <h2>Example #1 : default options</h2>
+  		  <div class="other">
+          <button class="uibutton confirm" id="stop">stop</button>
+          <button class="uibutton confirm" id="play">play</button>
+      
+          <div id="slider" class="slider">
+            <div class="knob"></div>
+          </div>
+          
+          <div class="code">
+            <pre style='color:#000020;background:#f6f8ff;'>
+<span style='color:#200080; font-weight:bold; '>var</span> mooclockPH <span style='color:#308080; '>=</span> $<span style='color:#308080; '>(</span><span style='color:#1060b6; '>'mooClock-1'</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span> <span style='color:#595979; '>//grab DOM element</span>
+
+<span style='color:#200080; font-weight:bold; '>var</span> mooclock <span style='color:#308080; '>=</span> <span style='color:#200080; font-weight:bold; '>new</span> MooClock<span style='color:#308080; '>(</span>mooclockPH<span style='color:#308080; '>)</span><span style='color:#406080; '>;</span> <span style='color:#595979; '>//new instance, no options</span>
+
+<span style='color:#595979; '>//play/stop handling</span>
+$<span style='color:#308080; '>(</span><span style='color:#1060b6; '>'stop'</span><span style='color:#308080; '>)</span><span style='color:#308080; '>.</span>addEvent<span style='color:#308080; '>(</span><span style='color:#1060b6; '>'click'</span><span style='color:#308080; '>,</span><span style='color:#200080; font-weight:bold; '>function</span><span style='color:#308080; '>(</span><span style='color:#308080; '>)</span><span style='color:#406080; '>{</span>mooclock<span style='color:#308080; '>.</span>stop<span style='color:#308080; '>(</span><span style='color:#308080; '>)</span><span style='color:#406080; '>}</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+$<span style='color:#308080; '>(</span><span style='color:#1060b6; '>'play'</span><span style='color:#308080; '>)</span><span style='color:#308080; '>.</span>addEvent<span style='color:#308080; '>(</span><span style='color:#1060b6; '>'click'</span><span style='color:#308080; '>,</span><span style='color:#200080; font-weight:bold; '>function</span><span style='color:#308080; '>(</span><span style='color:#308080; '>)</span><span style='color:#406080; '>{</span>mooclock<span style='color:#308080; '>.</span>play<span style='color:#308080; '>(</span><span style='color:#308080; '>)</span><span style='color:#406080; '>}</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+
+<span style='color:#595979; '>//grab slider element</span>
+<span style='color:#200080; font-weight:bold; '>var</span> slider <span style='color:#308080; '>=</span> $<span style='color:#308080; '>(</span><span style='color:#1060b6; '>'slider'</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+
+<span style='color:#200080; font-weight:bold; '>new</span> Slider<span style='color:#308080; '>(</span>slider<span style='color:#308080; '>,</span> slider<span style='color:#308080; '>.</span>getElement<span style='color:#308080; '>(</span><span style='color:#1060b6; '>'.knob'</span><span style='color:#308080; '>)</span><span style='color:#308080; '>,</span> <span style='color:#406080; '>{</span>
+    range<span style='color:#406080; '>:</span> <span style='color:#308080; '>[</span><span style='color:#008c00; '>40</span><span style='color:#308080; '>,</span> <span style='color:#008c00; '>300</span><span style='color:#308080; '>]</span><span style='color:#308080; '>,</span>
+    initialStep<span style='color:#406080; '>:</span> <span style='color:#008c00; '>80</span><span style='color:#308080; '>,</span>
+    wheel <span style='color:#406080; '>:</span> <span style='color:#0f4d75; '>true</span><span style='color:#308080; '>,</span>
+    onChange<span style='color:#406080; '>:</span> <span style='color:#200080; font-weight:bold; '>function</span><span style='color:#308080; '>(</span>value<span style='color:#308080; '>)</span><span style='color:#406080; '>{</span>
+      mooclock<span style='color:#308080; '>.</span>stop<span style='color:#308080; '>(</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+      mooclock<span style='color:#308080; '>.</span>getCanvas<span style='color:#308080; '>(</span><span style='color:#308080; '>)</span><span style='color:#308080; '>.</span>setStyle<span style='color:#308080; '>(</span><span style='color:#1060b6; '>'display'</span><span style='color:#308080; '>,</span><span style='color:#1060b6; '>'none'</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+      mooclockPH<span style='color:#308080; '>.</span>setStyles<span style='color:#308080; '>(</span><span style='color:#406080; '>{</span>
+        <span style='color:#1060b6; '>'width'</span><span style='color:#406080; '>:</span>value<span style='color:#308080; '>,</span>
+        <span style='color:#1060b6; '>'height'</span><span style='color:#406080; '>:</span>value
+      <span style='color:#406080; '>}</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+    <span style='color:#406080; '>}</span><span style='color:#308080; '>,</span>
+    onComplete <span style='color:#406080; '>:</span> <span style='color:#200080; font-weight:bold; '>function</span><span style='color:#308080; '>(</span><span style='color:#308080; '>)</span><span style='color:#406080; '>{</span>
+      <span style='color:#595979; '>//overwrite instance</span>
+      mooclock <span style='color:#308080; '>=</span> <span style='color:#200080; font-weight:bold; '>new</span> MooClock<span style='color:#308080; '>(</span>mooclockPH<span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+    <span style='color:#406080; '>}</span>
+<span style='color:#406080; '>}</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+            </pre>
+          </div>
+          
+        </div>
+      
+        <div id="mooClock-1">
+        
+        </div>
+      </article>
+      <article>
+		    <h2>Example #2 : custom options</h2>
+  		  <div class="other">
+  		    <button class="uibutton confirm" id="stop1">stop</button>
+          <button class="uibutton confirm" id="play1">play</button>
+          <div class="code">
+<pre style='color:#000020;background:#f6f8ff;'><span style='color:#200080; font-weight:bold; '>var</span> mooclock1 <span style='color:#308080; '>=</span> <span style='color:#200080; font-weight:bold; '>new</span> MooClock<span style='color:#308080; '>(</span>$('mooClockDivWithBackground')<span style='color:#308080; '>,</span>
+  <span style='color:#406080; '>{</span>
+    <span style='color:#1060b6; '>'class'</span> <span style='color:#406080; '>:</span> <span style='color:#1060b6; '>'mooClock'</span><span style='color:#308080; '>,</span> <span style='color:#595979; '>//default, set to &lt;canvas></span>
+    <span style='color:#1060b6; '>'timeClass'</span> <span style='color:#406080; '>:</span> <span style='color:#1060b6; '>'mooClockTime'</span><span style='color:#308080; '>,</span> <span style='color:#595979; '>//default, set to time &lt;div></span>
+    style <span style='color:#406080; '>:</span> <span style='color:#406080; '>{</span>
+      <span style='color:#1060b6; '>'pivot'</span> <span style='color:#406080; '>:</span> <span style='color:#406080; '>{</span>
+        <span style='color:#1060b6; '>'color'</span> <span style='color:#406080; '>:</span> <span style='color:#1060b6; '>'#787878'</span><span style='color:#308080; '>,</span>
+        <span style='color:#1060b6; '>'width'</span> <span style='color:#406080; '>:</span> <span style='color:#008c00; '>8</span>
+      <span style='color:#406080; '>}</span><span style='color:#308080; '>,</span>
+      <span style='color:#1060b6; '>'seconds'</span> <span style='color:#406080; '>:</span> <span style='color:#406080; '>{</span>
+        <span style='color:#1060b6; '>'color'</span> <span style='color:#406080; '>:</span> <span style='color:#1060b6; '>'#898989'</span><span style='color:#308080; '>,</span>
+        <span style='color:#1060b6; '>'len'</span> <span style='color:#406080; '>:</span> <span style='color:#008c00; '>77</span><span style='color:#308080; '>,</span> <span style='color:#595979; '>//from 0 to 100</span>
+        <span style='color:#1060b6; '>'size'</span> <span style='color:#406080; '>:</span> <span style='color:#008c00; '>2</span>
+      <span style='color:#406080; '>}</span><span style='color:#308080; '>,</span>
+      <span style='color:#1060b6; '>'minutes'</span> <span style='color:#406080; '>:</span> <span style='color:#406080; '>{</span>
+        <span style='color:#1060b6; '>'color'</span> <span style='color:#406080; '>:</span> <span style='color:#1060b6; '>'#343434'</span><span style='color:#308080; '>,</span>
+        <span style='color:#1060b6; '>'len'</span> <span style='color:#406080; '>:</span> <span style='color:#008c00; '>65</span><span style='color:#308080; '>,</span> <span style='color:#595979; '>//from 0 to 100</span>
+        <span style='color:#1060b6; '>'size'</span> <span style='color:#406080; '>:</span> <span style='color:#008c00; '>5</span>
+      <span style='color:#406080; '>}</span><span style='color:#308080; '>,</span>
+      <span style='color:#1060b6; '>'hours'</span> <span style='color:#406080; '>:</span> <span style='color:#406080; '>{</span>
+        <span style='color:#1060b6; '>'color'</span> <span style='color:#406080; '>:</span> <span style='color:#1060b6; '>'#343434'</span><span style='color:#308080; '>,</span>
+        <span style='color:#1060b6; '>'len'</span> <span style='color:#406080; '>:</span> <span style='color:#008c00; '>45</span><span style='color:#308080; '>,</span> <span style='color:#595979; '>//from 0 to 100</span>
+        <span style='color:#1060b6; '>'size'</span> <span style='color:#406080; '>:</span> <span style='color:#008c00; '>10</span>
+      <span style='color:#406080; '>}</span><span style='color:#308080; '>,</span>
+      <span style='color:#1060b6; '>'milliseconds'</span> <span style='color:#406080; '>:</span> <span style='color:#406080; '>{</span>
+        <span style='color:#1060b6; '>'color'</span> <span style='color:#406080; '>:</span> <span style='color:#1060b6; '>'#000000'</span><span style='color:#308080; '>,</span>
+        <span style='color:#1060b6; '>'len'</span> <span style='color:#406080; '>:</span> <span style='color:#008c00; '>20</span><span style='color:#308080; '>,</span> <span style='color:#595979; '>//from 0 to 100</span>
+        <span style='color:#1060b6; '>'size'</span> <span style='color:#406080; '>:</span> <span style='color:#008c00; '>1</span>
+      <span style='color:#406080; '>}</span>
+    <span style='color:#406080; '>}</span><span style='color:#308080; '>,</span>
+    showMilliseconds <span style='color:#406080; '>:</span> <span style='color:#0f4d75; '>false</span><span style='color:#308080; '>,</span>
+    showTime <span style='color:#406080; '>:</span> <span style='color:#0f4d75; '>true</span><span style='color:#308080; '>,</span>
+    shwClockCircle <span style='color:#406080; '>:</span> <span style='color:#0f4d75; '>false</span><span style='color:#308080; '>,</span> <span style='color:#595979; '>//if there's a background image (custom clock image), set to false</span>
+    timeZoneIncrement <span style='color:#406080; '>:</span> <span style='color:#008c00; '>2</span> <span style='color:#595979; '>//hours to increment i.e. CEST+2</span>
+  <span style='color:#406080; '>}</span>
+<span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+</pre>            
+          </div>
+        </div>
+      
+        <div id="mooClock-2">
+        
+        </div>
+      </article>
+      
+      <article>
+        <h2>Notes</h2>
+        <p>Support for IE &lt; 9 (through VML) isn't completed. Be patient, it will be updated ASAP :)</p>
+      </article>
+      
+		</div>
+
+		<footer>
+      <a href="http://twitter.com/stecb">@stecb</a>
+		</footer>
+	</div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.2/mootools-yui-compressed.js"></script>
+  
+  <script src="./lib/mootools-more.js"></script>
+  
+	<script src="../Source/mooclock.js"></script>
+	
+	<script>
+	  window.addEvent('domready',function(){
+	    
+	    var mooclockPH = $('mooClock-1');
+	    
+	    var mooclock = new MooClock(mooclockPH,{
+	      
+	    });
+
+      $('stop').addEvent('click',function(){mooclock.stop()});
+      $('play').addEvent('click',function(){mooclock.play()});
+	    
+      var slider = $('slider');
+
+      new Slider(slider, slider.getElement('.knob'), {
+        range: [40, 300],
+        initialStep: 80,
+        wheel : true,
+        onChange: function(value){
+          mooclock.stop();
+          mooclock.getCanvas().setStyle('display','none');
+          mooclockPH.setStyles({
+            'width':value,
+            'height':value
+          })
+        },
+        onComplete : function(){
+          mooclock = new MooClock(mooclockPH);
+        }
+      });
+      
+      // Second example
+      var mooclockPH_1 = $('mooClock-2');
+	    
+	    var mooclock1 = new MooClock(mooclockPH_1,
+	      {
+          'class' : 'mooClock', //default, to <canvas>
+          'timeClass' : 'mooClockTime', //default, to time <div>
+          style : {
+            'pivot' : {
+              'color' : '#787878',
+              'width' : 8
+            },
+            'seconds' : {
+              'color' : '#898989',
+              'len' : 77, //from 0 to 100
+              'size' : 2
+            },
+            'minutes' : {
+              'color' : '#343434',
+              'len' : 65, //from 0 to 100
+              'size' : 5
+            },
+            'hours' : {
+              'color' : '#343434',
+              'len' : 45, //from 0 to 100
+              'size' : 10
+            },
+            'milliseconds' : {
+              'color' : '#000000',
+              'len' : 20, //from 0 to 100
+              'size' : 1
+            }
+          },
+          showMilliseconds : false,
+          showTime : true,
+          shwClockCircle : false, //if there's a background image (custom clock image), set to false
+          timeZoneIncrement : 2 //hours to increment i.e. CEST+2
+        }
+	    );
+	    
+	    $('stop1').addEvent('click',function(){mooclock1.stop()});
+      $('play1').addEvent('click',function(){mooclock1.play()});      
+      
+	  });
+	</script>
+	
+</body>
+</html>
