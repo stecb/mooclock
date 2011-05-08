@@ -5,6 +5,8 @@ Mooclock is a Mootools plugin that shows an animated Clock.
 
 Demo: http://stecb.github.com/mooclock/
 
+![Screenshot](http://stecb.github.com/mooclock/img/screenshot.jpg)
+
 How to use
 ----------
 
